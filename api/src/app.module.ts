@@ -8,6 +8,8 @@ import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { StockProducer } from './gateways/queue/queue.producer';
+import { HttpModule } from '@nestjs/axios';
+import { NasdaqAPIService } from './gateways/http/nasdaq/nasdaq-api.service';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { StockProducer } from './gateways/queue/queue.producer';
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
+
+    HttpModule,
 
     BullModule.forRoot({
       redis: {
@@ -35,6 +39,6 @@ import { StockProducer } from './gateways/queue/queue.producer';
       adapter: BullMQAdapter,
     }),
   ],
-  providers: [StockResolver, StockService, StockProducer],
+  providers: [StockResolver, StockService, StockProducer, NasdaqAPIService],
 })
 export class AppModule {}

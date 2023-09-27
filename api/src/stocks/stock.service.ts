@@ -2,12 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { StockGraphQLType } from './dtos/types/stock-summary.type';
 import { TransactionGraphQLType } from './dtos/types/transaction.type';
 import { StockProducer } from '../gateways/queue/queue.producer';
+import { NasdaqAPIService } from '../gateways/http/nasdaq/nasdaq-api.service';
 
 @Injectable()
 export class StockService {
-  constructor(private stockProducer: StockProducer) {}
+  constructor(
+    private stockProducer: StockProducer,
+    private nasdaqAPIService: NasdaqAPIService,
+  ) {}
 
-  purchaseStock(params: {
+  async purchaseStock(params: {
     user: number;
     shares: number;
     stock: string;
@@ -15,11 +19,15 @@ export class StockService {
     const { shares, stock, user } = params;
     const operation = 'purchase';
 
+    const stockData = await this.nasdaqAPIService.getStock(stock);
+    const { price } = stockData;
+
     this.stockProducer.registerStockTransaction({
-      operation,
-      shares,
-      stock,
       user,
+      operation,
+      stock,
+      shares,
+      price,
     });
 
     const mockResponse: TransactionGraphQLType = {
@@ -33,7 +41,7 @@ export class StockService {
     return Promise.resolve(mockResponse);
   }
 
-  sellStock(params: {
+  async sellStock(params: {
     user: number;
     shares: number;
     stock: string;
@@ -41,11 +49,15 @@ export class StockService {
     const { shares, stock, user } = params;
     const operation = 'sell';
 
+    const stockData = await this.nasdaqAPIService.getStock(stock);
+    const { price } = stockData;
+
     this.stockProducer.registerStockTransaction({
-      operation,
-      shares,
-      stock,
       user,
+      operation,
+      stock,
+      shares,
+      price,
     });
 
     const mockResponse: TransactionGraphQLType = {
@@ -59,7 +71,9 @@ export class StockService {
     return Promise.resolve(mockResponse);
   }
 
-  getStocksSummary(params: { user: number }): StockGraphQLType[] {
+  async getStocksSummary(params: {
+    user: number;
+  }): Promise<StockGraphQLType[]> {
     const { user } = params;
 
     const mockResponse: StockGraphQLType[] = [
