@@ -4,8 +4,8 @@
 
 ## General considerations
 
-- The api service should be written in Rust with the following requirements: Rust 1.70.0, tokio and async-graphql.
-- The event processing service should be written in Rust with the following requirements: Rust 1.70.0
+- ~~The api service should be written in Rust with the following requirements: Rust 1.70.0, tokio and async-graphql.~~
+- ~~The event processing service should be written in Rust with the following requirements: Rust 1.70.0~~
 
 ## The problem
 
