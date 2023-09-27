@@ -5,6 +5,8 @@ import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { HttpModule } from '@nestjs/axios';
+import { TransactionService } from './transaction/transaction.service';
+import { NasdaqAPIService } from './gateways/http/nasdaq/nasdaq-api.service';
 
 @Module({
   imports: [
@@ -29,6 +31,6 @@ import { HttpModule } from '@nestjs/axios';
       adapter: BullMQAdapter,
     }),
   ],
-  providers: [TransactionConsumer],
+  providers: [TransactionConsumer, NasdaqAPIService, TransactionService],
 })
 export class AppModule {}
