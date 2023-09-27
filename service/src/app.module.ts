@@ -6,7 +6,10 @@ import { ExpressAdapter } from '@bull-board/express';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { HttpModule } from '@nestjs/axios';
 import { TransactionService } from './transaction/transaction.service';
-import { NasdaqAPIService } from './gateways/http/nasdaq/nasdaq-api.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { StockOperationsDAO } from './gateways/database/stock-operations.dao';
+import { TransactionDatabaseEntity } from './gateways/database/entities/transaction.entity';
+import { WalletDatabaseEntity } from './gateways/database/entities/wallet.entity';
 
 @Module({
   imports: [
@@ -30,7 +33,20 @@ import { NasdaqAPIService } from './gateways/http/nasdaq/nasdaq-api.service';
       name: process.env.QUEUE_NAME,
       adapter: BullMQAdapter,
     }),
+
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
+      // leaving these below to simplify
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+    TypeOrmModule.forFeature([TransactionDatabaseEntity, WalletDatabaseEntity]),
   ],
-  providers: [TransactionConsumer, NasdaqAPIService, TransactionService],
+  providers: [TransactionConsumer, TransactionService, StockOperationsDAO],
 })
 export class AppModule {}

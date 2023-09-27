@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { NasdaqAPIService } from '../gateways/http/nasdaq/nasdaq-api.service';
+import { StockOperationsDAO } from '../gateways/database/stock-operations.dao';
 
 @Injectable()
 export class TransactionService {
-  constructor(private nasdaqAPIService: NasdaqAPIService) {}
+  constructor(private stockOperationsDAO: StockOperationsDAO) {}
 
   async handleStockPurchase(params: {
     user: number;
@@ -13,9 +13,25 @@ export class TransactionService {
   }): Promise<void> {
     const { shares, stock, price, user } = params;
 
-    await this.validateOperation(stock, price);
+    try {
+      await this.stockOperationsDAO.registerPurchaseTransaction({
+        shares,
+        stock,
+        price,
+        user,
+      });
+    } catch (exception) {
+      await this.stockOperationsDAO.registerFailedPurchaseTransaction({
+        shares,
+        stock,
+        price,
+        user,
+      });
 
-    return Promise.resolve();
+      throw exception;
+    }
+
+    return;
   }
 
   async handleStockSell(params: {
@@ -26,22 +42,23 @@ export class TransactionService {
   }): Promise<void> {
     const { shares, stock, price, user } = params;
 
-    await this.validateOperation(stock, price);
+    try {
+      await this.stockOperationsDAO.registerSellTransaction({
+        shares,
+        stock,
+        price,
+        user,
+      });
+    } catch (exception) {
+      await this.stockOperationsDAO.registerFailedSellTransaction({
+        shares,
+        stock,
+        price,
+        user,
+      });
 
-    return Promise.resolve();
-  }
-
-  //
-
-  private async validateOperation(
-    stock: string,
-    requestedPrice: number,
-  ): Promise<void> {
-    const stockData = await this.nasdaqAPIService.getStock(stock);
-    const realtimePrice = stockData.price;
-
-    const isValidOperationPrice = requestedPrice === realtimePrice;
-    if (!isValidOperationPrice) throw new Error('Prices not matching!');
+      throw exception;
+    }
 
     return;
   }

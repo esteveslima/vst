@@ -23,7 +23,7 @@ export class TransactionConsumer {
   async processStockTransaction(
     job: Job<TransactionPayload>,
   ): Promise<TransactionResult> {
-    await sleep(5000); //simulating a processing time for easy visualization in the queue
+    // await sleep(5000); //simulating a processing time for easy visualization in the queue
 
     try {
       await this.routeTransaction(job);
@@ -39,7 +39,7 @@ export class TransactionConsumer {
 
     switch (operation) {
       case 'purchase': {
-        await this.transactionService.handleStockPurchase({
+        return await this.transactionService.handleStockPurchase({
           price,
           shares,
           stock,
@@ -47,7 +47,7 @@ export class TransactionConsumer {
         });
       }
       case 'sell': {
-        await this.transactionService.handleStockSell({
+        return await this.transactionService.handleStockSell({
           price,
           shares,
           stock,
