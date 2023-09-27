@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [  
+        {
+            "name": "Attach Debugger NestJs",
+            "type": "node",      
+            "request": "attach",            
+            "protocol": "inspector",
+            "processId": "${command:PickProcess}",
+            "restart": true,
+            "smartStep": true,
+            "sourceMaps": true,            
+            "skipFiles": [
+            "${workspaceFolder}/node_modules/**/*.js",
+            "<node_internals>/**/*.js"
+            ],
+            "port": 9229,
+        }
+    ]
+  }
