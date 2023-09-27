@@ -15,5 +15,5 @@ export class TransactionGraphQLType {
   shares: number;
 
   @Field(() => String)
-  status: string;
+  status: 'pending' | 'success' | 'failure';
 }

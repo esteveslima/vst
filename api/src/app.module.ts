@@ -7,7 +7,7 @@ import { BullModule } from '@nestjs/bull';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
-import { StockProducer } from './gateways/queue/queue.producer';
+import { TransactionProducer } from './gateways/queue/transactions/transaction.producer';
 import { HttpModule } from '@nestjs/axios';
 import { NasdaqAPIService } from './gateways/http/nasdaq/nasdaq-api.service';
 
@@ -39,6 +39,11 @@ import { NasdaqAPIService } from './gateways/http/nasdaq/nasdaq-api.service';
       adapter: BullMQAdapter,
     }),
   ],
-  providers: [StockResolver, StockService, StockProducer, NasdaqAPIService],
+  providers: [
+    StockResolver,
+    StockService,
+    TransactionProducer,
+    NasdaqAPIService,
+  ],
 })
 export class AppModule {}

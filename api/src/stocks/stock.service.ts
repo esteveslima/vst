@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { StockGraphQLType } from './dtos/types/stock-summary.type';
 import { TransactionGraphQLType } from './dtos/types/transaction.type';
-import { StockProducer } from '../gateways/queue/queue.producer';
+import { TransactionProducer } from '../gateways/queue/transactions/transaction.producer';
 import { NasdaqAPIService } from '../gateways/http/nasdaq/nasdaq-api.service';
 
 @Injectable()
 export class StockService {
   constructor(
-    private stockProducer: StockProducer,
+    private transactionProducer: TransactionProducer,
     private nasdaqAPIService: NasdaqAPIService,
   ) {}
 
@@ -22,7 +22,7 @@ export class StockService {
     const stockData = await this.nasdaqAPIService.getStock(stock);
     const { price } = stockData;
 
-    this.stockProducer.registerStockTransaction({
+    this.transactionProducer.registerStockTransaction({
       user,
       operation,
       stock,
@@ -52,7 +52,7 @@ export class StockService {
     const stockData = await this.nasdaqAPIService.getStock(stock);
     const { price } = stockData;
 
-    this.stockProducer.registerStockTransaction({
+    this.transactionProducer.registerStockTransaction({
       user,
       operation,
       stock,
@@ -89,6 +89,6 @@ export class StockService {
       },
     ];
 
-    return mockResponse;
+    return Promise.resolve(mockResponse);
   }
 }
