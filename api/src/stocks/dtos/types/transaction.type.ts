@@ -2,8 +2,8 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class TransactionGraphQLType {
-  @Field(() => Int)
-  id: number;
+  @Field(() => String)
+  operation: string;
 
   @Field(() => Int)
   user: number;
@@ -14,9 +14,6 @@ export class TransactionGraphQLType {
   @Field(() => Int)
   shares: number;
 
-  @Field(() => Date)
-  createdAt: Date;
-
-  @Field(() => Date)
-  updatedAt: Date;
+  @Field(() => String)
+  status: string;
 }

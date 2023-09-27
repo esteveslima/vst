@@ -58,8 +58,8 @@ services:
         restart: always
         expose:
            - '6379'
-        # ports:
-        #    - '6379:6379'
+        ports:
+           - '6379:6379'
     redis-commander-container:                                                # Setting up redis UI at http://localhost:6380/
         image: rediscommander/redis-commander:latest
         restart: "no"
