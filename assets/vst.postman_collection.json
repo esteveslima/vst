@@ -1,0 +1,546 @@
+{
+	"info": {
+		"_postman_id": "fc46c94b-85a3-4420-bcd4-47e86c7ac735",
+		"name": "vst",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10814302"
+	},
+	"item": [
+		{
+			"name": "mutation: purchaseStock",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation purchaseStock{\n  purchaseStock(user: 1, stock: \"meta\", shares: 3){\n    operation,user,stock,shares,status\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/graphql",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation purchaseStock{\n  purchaseStock(user: 1, stock: \"meta\", shares: 3){\n    operation,user,stock,shares,status\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/graphql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-store"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "106"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"6a-fFvqWxJrG9datOTY5EffZeBWK6Q\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 28 Sep 2023 01:59:15 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"purchaseStock\": {\n            \"operation\": \"purchase\",\n            \"user\": 1,\n            \"stock\": \"meta\",\n            \"shares\": 3,\n            \"status\": \"pending\"\n        }\n    }\n}"
+				},
+				{
+					"name": "stock not found",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation purchaseStock{\n  purchaseStock(user: 1, stock: \"abc\", shares: 3){\n    operation,user,stock,shares,status\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/graphql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-store"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "665"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"299-Dd8wTtlNywaSoJToo6txNf5PLk8\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 28 Sep 2023 01:59:34 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"errors\": [\n        {\n            \"message\": \"Stock not found!\",\n            \"locations\": [\n                {\n                    \"line\": 2,\n                    \"column\": 3\n                }\n            ],\n            \"path\": [\n                \"purchaseStock\"\n            ],\n            \"extensions\": {\n                \"code\": \"INTERNAL_SERVER_ERROR\",\n                \"stacktrace\": [\n                    \"Error: Stock not found!\",\n                    \"    at NasdaqAPIService.getStock (/app/dist/gateways/http/nasdaq/nasdaq-api.service.js:27:19)\",\n                    \"    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\",\n                    \"    at async StockService.purchaseStock (/app/dist/stocks/stock.service.js:26:27)\",\n                    \"    at async target (/app/node_modules/@nestjs/core/helpers/external-context-creator.js:74:28)\",\n                    \"    at async Object.purchaseStock (/app/node_modules/@nestjs/core/helpers/external-proxy.js:9:24)\"\n                ]\n            }\n        }\n    ],\n    \"data\": null\n}"
+				},
+				{
+					"name": "generic error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation purchaseStock{\n  purchaseStock(user: 1, stock: \"meta\", shares: 3){\n    operation,user,stock,shares,status\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/graphql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-store"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "932"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3a4-Xv1nMYLOwa6wfF/2HhjGFdrgJnA\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 28 Sep 2023 02:01:41 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"errors\": [\n        {\n            \"message\": \"getaddrinfo EAI_AGAIN api.nasdaq.com\",\n            \"locations\": [\n                {\n                    \"line\": 2,\n                    \"column\": 3\n                }\n            ],\n            \"path\": [\n                \"purchaseStock\"\n            ],\n            \"extensions\": {\n                \"code\": \"INTERNAL_SERVER_ERROR\",\n                \"stacktrace\": [\n                    \"Error: getaddrinfo EAI_AGAIN api.nasdaq.com\",\n                    \"    at AxiosError.from (/app/node_modules/axios/dist/node/axios.cjs:837:14)\",\n                    \"    at RedirectableRequest.handleRequestError (/app/node_modules/axios/dist/node/axios.cjs:3016:25)\",\n                    \"    at RedirectableRequest.emit (node:events:517:28)\",\n                    \"    at eventHandlers.<computed> (/app/node_modules/follow-redirects/index.js:14:24)\",\n                    \"    at ClientRequest.emit (node:events:517:28)\",\n                    \"    at TLSSocket.socketErrorListener (node:_http_client:501:9)\",\n                    \"    at TLSSocket.emit (node:events:517:28)\",\n                    \"    at emitErrorNT (node:internal/streams/destroy:151:8)\",\n                    \"    at emitErrorCloseNT (node:internal/streams/destroy:116:3)\",\n                    \"    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)\"\n                ]\n            }\n        }\n    ],\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "mutation: sellStock",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation sellStock{\n  sellStock(user: 1, stock: \"meta\", shares: 4){\n    operation,user,stock,shares,status\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/graphql",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation sellStock{\n  sellStock(user: 1, stock: \"meta\", shares: 4){\n    operation,user,stock,shares,status\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/graphql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-store"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "98"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"62-dkgTEG7AV2j0xZwYNzH0WlK4fzw\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 28 Sep 2023 02:02:29 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"sellStock\": {\n            \"operation\": \"sell\",\n            \"user\": 1,\n            \"stock\": \"meta\",\n            \"shares\": 4,\n            \"status\": \"pending\"\n        }\n    }\n}"
+				},
+				{
+					"name": "stock not found",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation sellStock{\n  sellStock(user: 1, stock: \"abc\", shares: 4){\n    operation,user,stock,shares,status\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/graphql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-store"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "653"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"28d-jb6HOzPVeI5/tek4ON+/ESlNvsY\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 28 Sep 2023 02:02:41 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"errors\": [\n        {\n            \"message\": \"Stock not found!\",\n            \"locations\": [\n                {\n                    \"line\": 2,\n                    \"column\": 3\n                }\n            ],\n            \"path\": [\n                \"sellStock\"\n            ],\n            \"extensions\": {\n                \"code\": \"INTERNAL_SERVER_ERROR\",\n                \"stacktrace\": [\n                    \"Error: Stock not found!\",\n                    \"    at NasdaqAPIService.getStock (/app/dist/gateways/http/nasdaq/nasdaq-api.service.js:27:19)\",\n                    \"    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\",\n                    \"    at async StockService.sellStock (/app/dist/stocks/stock.service.js:46:27)\",\n                    \"    at async target (/app/node_modules/@nestjs/core/helpers/external-context-creator.js:74:28)\",\n                    \"    at async Object.sellStock (/app/node_modules/@nestjs/core/helpers/external-proxy.js:9:24)\"\n                ]\n            }\n        }\n    ],\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "query: getStocksSummary",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query getStocksSummary{\n  getStocksSummary(user: 1){\n   stock,totalShares,totalValue,variationFromPurchase,purchaseDate,dayMin,dayAvg,dayMax\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/graphql",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getStocksSummary{\n  getStocksSummary(user: 1){\n   stock,totalShares,totalValue,variationFromPurchase,purchaseDate,dayMin,dayAvg,dayMax\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/graphql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-store"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "207"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"cf-95qfIUxFsK7mdomcl3w2mJyWM/U\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 28 Sep 2023 02:03:03 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"getStocksSummary\": [\n            {\n                \"stock\": \"meta\",\n                \"totalShares\": 3,\n                \"totalValue\": 893.22,\n                \"variationFromPurchase\": \"0.00%\",\n                \"purchaseDate\": \"2023-09-28T01:59:15.307Z\",\n                \"dayMin\": 286.79,\n                \"dayAvg\": 294.04,\n                \"dayMax\": 301.29\n            }\n        ]\n    }\n}"
+				},
+				{
+					"name": "no stocks found in the wallet",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getStocksSummary{\n  getStocksSummary(user: 999){\n   stock,totalShares,totalValue,variationFromPurchase,purchaseDate,dayMin,dayAvg,dayMax\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/graphql",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-store"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "698"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2ba-WAE72i1mC8Ael9AX38kcyNQmgcg\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 28 Sep 2023 02:03:21 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"errors\": [\n        {\n            \"message\": \"No stocks found for user 999\",\n            \"locations\": [\n                {\n                    \"line\": 2,\n                    \"column\": 3\n                }\n            ],\n            \"path\": [\n                \"getStocksSummary\"\n            ],\n            \"extensions\": {\n                \"code\": \"INTERNAL_SERVER_ERROR\",\n                \"stacktrace\": [\n                    \"Error: No stocks found for user 999\",\n                    \"    at StockQueriesDAO.getFullWallet (/app/dist/gateways/database/stock-queries.dao.js:27:19)\",\n                    \"    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\",\n                    \"    at async StockService.getStocksSummary (/app/dist/stocks/stock.service.js:65:34)\",\n                    \"    at async target (/app/node_modules/@nestjs/core/helpers/external-context-creator.js:74:28)\",\n                    \"    at async Object.getStocksSummary (/app/node_modules/@nestjs/core/helpers/external-proxy.js:9:24)\"\n                ]\n            }\n        }\n    ],\n    \"data\": null\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
