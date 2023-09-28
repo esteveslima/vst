@@ -1,5 +1,57 @@
 # vst
 
+## Candidate notes:
+
+- Many decisions were taken to simplify the project, as this is supposed to be a simple exercise
+- The last requirement was ignored because it would probably require some sort of recurrent job to store stocks data to be able to provide the history, which wouldn't be easy to test without a proper deployment to have this running continuously
+- Added below some improvements that would be required to be done in the case this was a real project
+
+### Potential improvements:
+- Enhance design and structure, as this is only simple enough to make the requirements work
+- Add unit testing
+- Add e2e testing
+- Enhance queries/operations performance, the current ones were focused mostly to ensure security against race conditions
+- Enhance input validation and error handling
+- Secure the math, as there could be rouding problems along the way in the code and/or database
+- Implement proper users and auth, the current concept of `user` is just a simple number representing different users
+
+
+## API Docs(GraphQL)
+
+There's a Postman collection with examples in the `/assets` folder to ease the testing
+
+- mutation: purchaseStock(user: int, stock: string, shares: int)
+  - purchase the amount of shares of a particular stock
+- mutation: sellStock(user: int, stock: string, shares: int)
+  - sell the amount of shares of a particular stock, if there's enough shares of it available
+- query: getStocksSummary(user: int)
+  - get the summary of all stocks owned by the user
+
+
+## Running the project with Docker
+
+- Ensure you have `Docker` and `docker-compose` installed
+- Run one of the commands below in the root folder:
+  ```
+    $ make up
+
+    or
+
+    $ docker-compose --file ./docker-compose.yml up --detach
+  ```
+  - Details of services used and ports available are present in the `docker-compose.yml` file
+  - The GraphQL API will be available at `localhost:8000`
+  - There's an interface to manage/view the bullmq queue at `localhost:8000/queues` or `localhost:8001/queues`
+- 
+
+
+---
+---
+---
+# Original Description:
+
+---
+
 # Backend Developer Technical Exercise
 
 ## General considerations
