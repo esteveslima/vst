@@ -86,11 +86,10 @@ export class StockService {
     const stockAndWalledData = await Promise.all(stockAndWalledDataPromises);
 
     const formattedResult = stockAndWalledData.map<StockGraphQLType>((data) => {
-      const ownedShareAveragePrice =
-        data.walletData.value / data.walletData.shares;
-      const currentSharePrice = data.stockData.price;
-      const sharePriceVariation =
-        1 - ownedShareAveragePrice / currentSharePrice;
+      const sharesAmount = data.walletData.shares
+      const ownedSharesTotalValue = data.walletData.value;
+      const currentPriceSharesTotalValue = data.stockData.price * sharesAmount;
+      const sharePriceVariation = 1 - (ownedSharesTotalValue / currentPriceSharesTotalValue);
 
       const currentSharePriceAvg =
         (data.stockData.dayMax + data.stockData.dayMin) / 2;
