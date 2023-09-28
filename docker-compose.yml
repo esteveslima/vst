@@ -3,26 +3,26 @@ services:
     
     api-container:
         build:
-            context: ./api
+            context: ./projects/api
             dockerfile: Dockerfile
         depends_on:
             - mysql-container
             - redis-container
         env_file:
-            - ./api/.env
+            - ./projects/api/.env
         restart: "no"
         ports:
             - 8000:3000
 
     service-container:
         build:
-            context: ./service
+            context: ./projects/service
             dockerfile: Dockerfile
         depends_on:
             - mysql-container
             - redis-container
         env_file:
-            - ./service/.env
+            - ./projects/service/.env
         restart: "no"
         ports:
             - 8001:3001
