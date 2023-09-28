@@ -17,7 +17,7 @@ export class TransactionProducer {
     private queue: Queue<TransactionPayload>,
   ) {}
 
-  async registerStockTransaction(params: TransactionPayload): Promise<void> {
+  async produceStockTransaction(params: TransactionPayload): Promise<void> {
     const { user, operation, stock, shares, price } = params;
 
     const job = await this.queue.add({ user, operation, stock, shares, price });

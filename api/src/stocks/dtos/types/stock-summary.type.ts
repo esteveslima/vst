@@ -11,8 +11,8 @@ export class StockGraphQLType {
   @Field(() => Float)
   totalValue: number;
 
-  @Field(() => Float)
-  variationFromPurchase: number;
+  @Field(() => String)
+  variationFromPurchase: string;
 
   @Field(() => Date)
   purchaseDate: Date;
