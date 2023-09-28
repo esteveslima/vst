@@ -1,6 +1,6 @@
 import { Processor, Process } from '@nestjs/bull';
 import { Job } from 'bull';
-import { TransactionService } from '../../../transaction/transaction.service';
+import { TransactionService } from './transaction.service';
 
 interface TransactionPayload {
   user: number;

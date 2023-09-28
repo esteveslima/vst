@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TransactionConsumer } from './gateways/queue/transactions/transaction.consumer';
+import { TransactionConsumer } from './features/transaction/transaction.consumer';
 import { BullModule } from '@nestjs/bull';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { HttpModule } from '@nestjs/axios';
-import { TransactionService } from './transaction/transaction.service';
+import { TransactionService } from './features/transaction/transaction.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StockOperationsDAO } from './gateways/database/stock-operations.dao';
 import { TransactionDatabaseEntity } from './gateways/database/entities/transaction.entity';

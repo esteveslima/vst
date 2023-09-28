@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { StockGraphQLType } from './dtos/types/stock-summary.type';
 import { TransactionGraphQLType } from './dtos/types/transaction.type';
-import { TransactionProducer } from '../gateways/queue/transactions/transaction.producer';
-import { NasdaqAPIService } from '../gateways/http/nasdaq/nasdaq-api.service';
-import { StockQueriesDAO } from '../gateways/database/stock-queries.dao';
+import { TransactionProducer } from '../../gateways/queue/transactions/transaction.producer';
+import { NasdaqAPIService } from '../../gateways/http/nasdaq/nasdaq-api.service';
+import { StockQueriesDAO } from '../../gateways/database/stock-queries.dao';
 
 @Injectable()
 export class StockService {

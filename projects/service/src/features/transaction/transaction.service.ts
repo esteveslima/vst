@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { StockOperationsDAO } from '../gateways/database/stock-operations.dao';
+import { StockOperationsDAO } from '../../gateways/database/stock-operations.dao';
 
 @Injectable()
 export class TransactionService {

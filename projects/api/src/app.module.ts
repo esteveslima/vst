@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { StockService } from './stocks/stock.service';
-import { StockResolver } from './stocks/stock.resolver';
+import { StockService } from './features/stocks/stock.service';
+import { StockResolver } from './features/stocks/stock.resolver';
 import { BullModule } from '@nestjs/bull';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { ExpressAdapter } from '@bull-board/express';

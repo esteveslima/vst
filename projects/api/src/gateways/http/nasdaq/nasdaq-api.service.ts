@@ -32,8 +32,8 @@ export class NasdaqAPIService {
     const result: GetStockResponseDTO = {
       stock,
       price: +priceOnlyNumbers,
-      dayMin: +dayMin,
-      dayMax: +dayMax,
+      dayMin: +dayMin || -1,
+      dayMax: +dayMax || -1,
     };
 
     const isAllDataAvailable = Object.values(result).every((value) => !!value);
